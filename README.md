@@ -1,137 +1,91 @@
-🛒 Walmart Sales Data Analysis using SQL
-📌 Project Overview
-This SQL-based project focuses on analyzing Walmart's retail transaction data to derive insights on product performance, customer behavior, branch-wise sales, and profitability. The goal is to use SQL to answer real-world business questions and support data-driven decision-making.
+# 🛒 Walmart Sales Data Analysis using SQL
 
-🎯 Objectives
-Identify best-selling products and top-performing branches
+## 📘 Introduction
 
-Understand customer purchasing behavior by time, gender, and type
+This project uses SQL to analyze Walmart's retail sales data with the goal of uncovering patterns in customer behavior, sales trends, and product performance. The analysis was performed on a structured dataset representing transactions from three different branches.
 
-Analyze revenue, VAT, and profit trends across months and weekdays
+## 🎯 Project Goals
 
-Classify product lines and branches based on performance
+- Analyze sales trends across branches and products
+- Identify high-performing categories and customer segments
+- Evaluate VAT, revenue, and gross income across different time periods
+- Support data-driven decisions using clear and efficient SQL queries
 
-🧾 Dataset Summary
-The dataset contains 1000 records with sales data from 3 Walmart branches located in Mandalay, Yangon, and Naypyitaw. Each row captures a unique transaction with detailed financial and customer information.
+## 🧾 Dataset Summary
 
-🧱 Columns Included:
-Column Name	Description
-invoice_id	Unique identifier for each sale
-branch	Store code (A, B, or C)
-city	City location of the branch
-customer_type	Normal or Member
-gender	Customer gender
-product_line	Product category
-unit_price	Price per item
-quantity	Number of items sold
-VAT	5% tax applied to the purchase
-total	Final billed amount (COGS + VAT)
-date	Date of transaction
-time	Time of transaction
-payment_method	Payment type (e.g. Cash, Card, Ewallet)
-cogs	Cost of goods sold
-gross_margin_percentage	Profit margin %
-gross_income	Profit earned on the sale
-rating	Customer feedback rating (0–10)
+The dataset contains 1000 transaction records from three Walmart branches in **Yangon**, **Mandalay**, and **Naypyitaw**. Each entry provides detailed information about a customer purchase.
 
-⚙️ Approach & Methodology
-#️⃣ 1. Data Preparation
-Created a structured table using SQL CREATE TABLE statements
+### 🧱 Key Columns
 
-Applied NOT NULL constraints to ensure data completeness
+| Column Name             | Description                                |
+|-------------------------|--------------------------------------------|
+| `invoice_id`            | Unique transaction ID                      |
+| `branch`                | Store code (A, B, or C)                    |
+| `city`                  | Location of the store                      |
+| `customer_type`         | Member or Normal customer                  |
+| `gender`                | Customer’s gender                          |
+| `product_line`          | Product category                           |
+| `unit_price`            | Price per unit                             |
+| `quantity`              | Number of items sold                       |
+| `VAT`                   | 5% tax on COGS                             |
+| `total`                 | Total amount paid (COGS + VAT)             |
+| `date`                  | Date of transaction                        |
+| `time`                  | Time of transaction                        |
+| `payment_method`        | Payment method (e.g., Cash, Card)          |
+| `cogs`                  | Cost of goods sold                         |
+| `gross_margin_percentage` | Profit margin (%)                        |
+| `gross_income`          | Total profit                               |
+| `rating`                | Customer satisfaction rating (0–10)        |
 
-Verified and cleaned data before analysis
+## ⚙️ Process Overview
 
-#️⃣ 2. Feature Engineering
-time_of_day column to analyze sales by Morning, Afternoon, Evening
+### 1️⃣ Data Preparation
 
-day_name to understand busiest weekdays
+- Created database and table using SQL  
+- Inserted and validated 1000 rows of transaction data  
+- Ensured data types and constraints (e.g., NOT NULL) for quality
 
-month_name to track monthly trends in sales and profit
+### 2️⃣ Feature Engineering
 
-#️⃣ 3. Exploratory Data Analysis (EDA)
-Executed multiple SQL queries to uncover patterns related to:
+- `time_of_day`: Categorized into Morning, Afternoon, Evening  
+- `day_name`: Extracted day of the week from `date`  
+- `month_name`: Extracted month from `date`  
 
-Product line performance
+### 3️⃣ Data Analysis Using SQL
 
-Sales trends by time and location
+Used SQL queries to explore:
+- Revenue by product line and city  
+- Customer preferences by gender and type  
+- Time-based sales patterns  
+- Average rating distribution across branches  
 
-Customer type profitability
+## ❓ Business Questions Answered
 
-Gender-wise purchase behavior
+### 📍 General
+- How many cities are represented in the dataset?  
+- Which branches are in which cities?
 
-VAT and gross income contributions
+### 📦 Products
+- Which product line generates the most revenue?  
+- Which category has the highest VAT?  
+- Which product line performs best by gender?  
+- Are product lines performing above or below average?
 
-💼 Key Business Questions
-🏙 Generic
-How many unique cities are in the dataset?
+### 💰 Sales
+- Which month had the highest total sales and COGS?  
+- Which time of day brings in the most sales?  
+- What is the most used payment method?
 
-Which branches are in which city?
+### 👥 Customers
+- Which customer type (Normal or Member) brings more profit?  
+- Gender-wise and time-wise distribution of ratings  
+- Most common customer segment and behavior
 
-📦 Product-Focused
-Most popular product lines
+## 💸 Revenue & Profit Calculation
 
-Total monthly revenue
-
-Product line with highest VAT contribution
-
-Average rating by product line
-
-Product line performance classification (Good/Bad)
-
-💰 Sales Trends
-Sales distribution by time of day
-
-City with highest VAT collection
-
-Most profitable customer type
-
-👥 Customer Behavior
-Most frequent customer type
-
-Gender distribution across branches
-
-Time and day when customers give the most ratings
-
-🧮 Revenue & Profit Calculations
-text
-Copy
-Edit
+```text
 COGS = unit_price × quantity  
-VAT = 5% of COGS  
-Total (gross sales) = COGS + VAT  
+VAT = 5% × COGS  
+Total = COGS + VAT  
 Gross Income = Total - COGS  
-Gross Margin % = (Gross Income ÷ Total)
-Example:
-Unit Price = ₹45.79, Quantity = 7
-
-COGS = 45.79 × 7 = ₹320.53
-
-VAT = 5% of 320.53 = ₹16.0265
-
-Total = ₹336.56
-
-Gross Margin = 16.0265 / 336.56 ≈ 4.76%
-
-📂 Sample SQL Query
-sql
-Copy
-Edit
--- Revenue by product line
-SELECT product_line, SUM(total) AS revenue
-FROM sales
-GROUP BY product_line
-ORDER BY revenue DESC;
-🛠 Tools Used
-SQL (MySQL or PostgreSQL)
-
-Kaggle Dataset
-
-GitHub for version control
-
-🔗 Project Repository
-Check the full SQL code and queries here:
-👉 SQL_queries.sql
-
-✅ Conclusion
-Through this project, SQL was used to transform retail transaction data into valuable business insights. The analysis supports better understanding of customer preferences, revenue drivers, and operational patterns—making it an ideal starting point for retail data analytics.
+Gross Margin % = Gross Income ÷ Total
