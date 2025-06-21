@@ -1,119 +1,137 @@
-#🛍 Walmart Sales Data Insights using SQL
-📘 Overview
-This project is focused on analyzing Walmart retail sales data using SQL to uncover patterns in product performance, customer behavior, and branch-level sales trends. By performing feature engineering and answering key business questions, the goal is to deliver data-driven insights that can help shape effective sales and marketing strategies.
-
-The dataset simulates transaction-level data from Walmart branches located in three different cities and includes a variety of features like invoice details, product lines, customer types, VAT, total cost, and ratings.
+🛒 Walmart Sales Data Analysis using SQL
+📌 Project Overview
+This SQL-based project focuses on analyzing Walmart's retail transaction data to derive insights on product performance, customer behavior, branch-wise sales, and profitability. The goal is to use SQL to answer real-world business questions and support data-driven decision-making.
 
 🎯 Objectives
-Identify high-performing branches and products
+Identify best-selling products and top-performing branches
 
-Understand customer behavior by type, time, and payment method
+Understand customer purchasing behavior by time, gender, and type
 
-Analyze trends in revenue, profit, and taxes over time
+Analyze revenue, VAT, and profit trends across months and weekdays
 
-Segment performance based on gender, city, and product lines
+Classify product lines and branches based on performance
 
-Perform profit margin calculations and rating insights
+🧾 Dataset Summary
+The dataset contains 1000 records with sales data from 3 Walmart branches located in Mandalay, Yangon, and Naypyitaw. Each row captures a unique transaction with detailed financial and customer information.
 
-📊 Dataset Description
-The dataset contains 1000 sales records with the following fields:
-
-Field Name	Description
-invoice_id	Unique identifier for each transaction
-branch	Branch code where transaction occurred
+🧱 Columns Included:
+Column Name	Description
+invoice_id	Unique identifier for each sale
+branch	Store code (A, B, or C)
 city	City location of the branch
-customer_type	Member or Normal customer
-gender	Gender of the buyer
-product_line	Category of the product purchased
+customer_type	Normal or Member
+gender	Customer gender
+product_line	Product category
 unit_price	Price per item
-quantity	Quantity purchased
-VAT	Value-added tax on the purchase
-total	Final billed amount (with VAT)
+quantity	Number of items sold
+VAT	5% tax applied to the purchase
+total	Final billed amount (COGS + VAT)
 date	Date of transaction
-time	Time of purchase
-payment_method	Mode of payment (Cash, Card, etc.)
-cogs	Cost of goods sold (before tax)
-gross_margin_percentage	Profit margin as % of total
-gross_income	Total profit earned
-rating	Customer rating out of 10
+time	Time of transaction
+payment_method	Payment type (e.g. Cash, Card, Ewallet)
+cogs	Cost of goods sold
+gross_margin_percentage	Profit margin %
+gross_income	Profit earned on the sale
+rating	Customer feedback rating (0–10)
 
-⚙️ Approach
-1. 🔍 Data Preparation
-Created database and structured tables with NOT NULL constraints to maintain data integrity
+⚙️ Approach & Methodology
+#️⃣ 1. Data Preparation
+Created a structured table using SQL CREATE TABLE statements
 
-Inserted sample data and verified for completeness (no null values)
+Applied NOT NULL constraints to ensure data completeness
 
-2. 🛠 Feature Engineering
-To enhance analysis:
+Verified and cleaned data before analysis
 
-Extracted time_of_day (Morning, Afternoon, Evening) from the timestamp
+#️⃣ 2. Feature Engineering
+time_of_day column to analyze sales by Morning, Afternoon, Evening
 
-Added day_name (Mon–Sun) to understand weekly patterns
+day_name to understand busiest weekdays
 
-Added month_name to monitor monthly trends
+month_name to track monthly trends in sales and profit
 
-3. 📈 Business Insights
-Used SQL queries to answer real-world business questions:
+#️⃣ 3. Exploratory Data Analysis (EDA)
+Executed multiple SQL queries to uncover patterns related to:
 
-✅ General
-Count of unique cities and branch locations
+Product line performance
 
-📦 Product
-Most popular product line by revenue
+Sales trends by time and location
 
-VAT contribution per product
+Customer type profitability
 
-Sales classification ("Good" or "Bad") based on average performance
+Gender-wise purchase behavior
 
-Gender preference by product line
+VAT and gross income contributions
 
-💰 Sales
-Revenue trends by month, branch, and time of day
+💼 Key Business Questions
+🏙 Generic
+How many unique cities are in the dataset?
 
-Branch-wise and city-wise tax collection
+Which branches are in which city?
 
-Time slots with highest purchase frequency
+📦 Product-Focused
+Most popular product lines
 
-👥 Customers
-Distribution of customer types
+Total monthly revenue
 
-Gender breakdown per branch
+Product line with highest VAT contribution
 
-Which customers generate more revenue and higher VAT
+Average rating by product line
 
-Ratings trend based on time and day
+Product line performance classification (Good/Bad)
 
-💡 Revenue & Profit Calculations
-Key financial metrics were computed as follows:
+💰 Sales Trends
+Sales distribution by time of day
 
-COGS = unit_price × quantity
+City with highest VAT collection
 
-VAT = 5% × COGS
+Most profitable customer type
 
-total = COGS + VAT
+👥 Customer Behavior
+Most frequent customer type
 
-gross_income = total - COGS
+Gender distribution across branches
 
-gross_margin % = gross_income ÷ total
+Time and day when customers give the most ratings
 
-🧾 Sample SQL Snippet
+🧮 Revenue & Profit Calculations
+text
+Copy
+Edit
+COGS = unit_price × quantity  
+VAT = 5% of COGS  
+Total (gross sales) = COGS + VAT  
+Gross Income = Total - COGS  
+Gross Margin % = (Gross Income ÷ Total)
+Example:
+Unit Price = ₹45.79, Quantity = 7
+
+COGS = 45.79 × 7 = ₹320.53
+
+VAT = 5% of 320.53 = ₹16.0265
+
+Total = ₹336.56
+
+Gross Margin = 16.0265 / 336.56 ≈ 4.76%
+
+📂 Sample SQL Query
 sql
 Copy
 Edit
--- Get top-selling product lines by revenue
-SELECT product_line, SUM(total) AS total_revenue
+-- Revenue by product line
+SELECT product_line, SUM(total) AS revenue
 FROM sales
 GROUP BY product_line
-ORDER BY total_revenue DESC;
-For full SQL logic and detailed queries:
-📂 View SQL Code on GitHub
+ORDER BY revenue DESC;
+🛠 Tools Used
+SQL (MySQL or PostgreSQL)
 
-🧠 Tools & Tech
-SQL (MySQL/PostgreSQL)
+Kaggle Dataset
 
-Data extracted from Kaggle
+GitHub for version control
 
-GitHub for version control and collaboration
+🔗 Project Repository
+Check the full SQL code and queries here:
+👉 SQL_queries.sql
 
-📌 Conclusion
-By applying SQL for detailed EDA, this project demonstrates how structured query logic can transform raw transactional data into meaningful business insights — helping stakeholders make informed decisions in retail environments.
+✅ Conclusion
+Through this project, SQL was used to transform retail transaction data into valuable business insights. The analysis supports better understanding of customer preferences, revenue drivers, and operational patterns—making it an ideal starting point for retail data analytics.
